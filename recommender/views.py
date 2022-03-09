@@ -61,6 +61,13 @@ def register_view(request):
             return redirect(request.META['HTTP_REFERER'])
 
 
+def dashboard_view(request):
+    return render(request,'dashboard.html')
+
+def profile_view(request):
+    return render(request,'profile.html')
+
+
 def pdf_to_text(pdf):
     text = str(textract.process('input.pdf'))
     text = re.split('\s{4,}',text)

@@ -338,7 +338,7 @@ body {
 #content {
 	position: relative;
 	width: calc(100% - 280px);
-	left: 280px;
+	left: 300px;
 	transition: .3s ease;
 }
 #sidebar.hide ~ #content {
@@ -473,4 +473,57 @@ body {
 	left: calc(100% - (25px - 4px) - 2px);
 }
 /* NAVBAR */
+
+/*CONTENT
+.card {
+    height: 250px;
+    width: 850px;
+    margin-bottom: 200px;
+    margin-right: 90px;
+    transition: 0.3s;
+    border-radius: 15px; 
+    background-color: #ffffff;
+  
+  }*/
+
+  .card{
+      display: block;
+      width: 800px;
+      margin-right: 350px;
+      margin-bottom: 200px;
+  }
+
+  
+  /* On mouse-over, add a deeper shadow 
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }*/
+  
+/*-----------Profile-----------*/
+.student-profile .card {
+    border-radius: 10px;
+}
+.student-profile .card .card-header .profile_img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px auto;
+    border: 10px solid #ccc;
+    border-radius: 50%;
+}
+.student-profile .card h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+.student-profile .card p {
+    font-size: 16px;
+    color: #000;
+}
+.student-profile .table th,
+.student-profile .table td {
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #000;
+}
+
 
