@@ -67,14 +67,14 @@ def dashboard_view(request):
     return render(request,'dashboard.html')
 
 def profile_view(request):
-    return render(request,'profile.html')
+    interests = json.loads(request.user.interests)
+    return render(request,'profile.html',context={'interests':interests})
 
 def upload_view(request):
     return render(request,'upload.html')
 
 def history_view(request):
     return render(request,'history.html')
-
 
 def pdf_to_text(pdf):
     text = str(textract.process('input.pdf'))

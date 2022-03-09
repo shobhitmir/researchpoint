@@ -59,7 +59,6 @@ body {
   width: 150px;
   position: relative;
   margin: auto;
-  top: -60px;
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -180,15 +179,17 @@ Resources
     <!-----Content-->
     <div class="container" style="justify-content: center; margin-left: 50px;">
         <div class="avatar-flip">
-          <img src="{% static 'images/profile.png' %}" height="150" width="150">
-          <img src="{% static 'images/slider1.png' %}" height="150" width="150">
+          <img src="{% static 'images/user_photo.png' %}" height="150" width="150">
+          <img src="{% static 'images/user_photo.png' %}" height="150" width="150">
         </div>
-        <h2 class="p_name" id="rp_name">John Smith</h2>
-        <h4>USER</h4>
-        <class="p_no" id="p_no">123456789</class>
-        <class="p_email" id="p_email">example@example.com</h5><br>
-        <class="p_interests" id="p_interests">Interests : Connec dolore ipsum faucibus mollis interdum. <br> ullamcorper nulla non metus auctor fringilla.</h5><br><br>
-        <class="p_misc" id="p_interests">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, ipsum magnam nostrum illum recusandae, earum dignissimos ut quasi deleniti animi optio reiciendis, tempore sequi ipsa! Aliquam architecto nemo recusandae asperiores.</h5>
+        <h2 class="p_name" style="margin-top: 50px;" id="rp_name">{{request.user.first_name}}  {{request.user.last_name}}</h2>
+        <h4>{{request.user}}</h4>
+        <class="p_interests" id="p_interests"><b>Interests :</b></h5><br>
+        {% for key,value in interests.items %}
+        {{key}}. {{value}} 
+        <br>
+        {% endfor %}
+        <br>
       </div>
       <script src="{% static 'js/script.js' %}"></script>
 </body>
