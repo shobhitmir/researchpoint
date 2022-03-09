@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<!-- My CSS -->
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 	<title>Researchpoint</title>
 </head>
@@ -109,6 +110,6 @@
 	</section>
 	<!-- CONTENT -->
 	
-	<script src="script.js"></script>
+	<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,10 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
          
     <!--<title>Login & Registration Form</title-->
 </head>
@@ -20,13 +24,14 @@
             <div class="form login" id="form login">
                 <center><span class="title">Login</span></center>
 
-                <form action="#">
+                <form action="{% url 'auth_login' %}" method="POST">
+                    {% csrf_token %}
                     <div class="input-field">
-                        <input type="text" placeholder="Enter your email" required>
+                        <input type="text" name="email" placeholder="Enter your email" required>
                         <i class="uil uil-envelope icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" class="password" placeholder="Enter your password" required>
+                        <input type="password" name="pwd" class="password" placeholder="Enter your password" required>
                         <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
                     </div>
@@ -41,41 +46,42 @@
                     </div>
 
                     <div class="input-field button">
-                        <input type="button" value="Login Now">
+                        <input type="submit" value="Login Now">
                     </div>
                 </form>
 
                 <div class="login-signup">
                     <span class="text">Not a member?
                         <a href="#" class="text signup-link">Signup now</a><br>
-                        <a href="dashboard.html" class="text dashboard-link">Dashboard temp</a>
                     </span>
                 </div>
             </div>
+
 
             <!-- Sign Up Form -->
             <div class="form signup">
             <center><span class="title">Sign Up</span></center>
 
-                <form action="#">
+                <form action="{% url 'auth_signup' %}" method="POST">
+                    {% csrf_token %}
                     <div class="input-field">
-                        <input type="text" placeholder="Enter your name" required>
+                        <input type="text" name="name" placeholder="Enter your name" required>
                         <i class="uil uil-user"></i>
                     </div>
                     <div class="input-field">
-                        <input type="text" placeholder="Enter your email" required>
+                        <input type="text" name="email" placeholder="Enter your email" required>
                         <i class="uil uil-envelope icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="text" placeholder="Enter your interests" required>
+                        <input type="text" name="interest" placeholder="Enter interests separated by commas" required>
                         <i class="uil uil-heart icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" class="password" placeholder="Create a password" required>
+                        <input type="password" name="pwd" class="password" placeholder="Create a password" required>
                         <i class="uil uil-lock icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" class="password" placeholder="Confirm a password" required>
+                        <input type="password" name="confirmpwd" class="password" placeholder="Confirm a password" required>
                         <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
                     </div>
@@ -90,7 +96,7 @@
                     </div>
 
                     <div class="input-field button">
-                        <input type="button" value="Sign Up">
+                        <input type="submit" value="Sign Up">
                     </div>
                 </form>
 
@@ -147,6 +153,17 @@
 
     </script>
 
+    
 
-</script></body>
+</script>
+{% if messages %}
+<div class="alert alert-danger">
+<ul>
+{% for message in messages %}
+    <li>{{ message }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+</body>
 </html>
