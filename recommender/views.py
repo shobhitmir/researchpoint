@@ -67,6 +67,12 @@ def dashboard_view(request):
 def profile_view(request):
     return render(request,'profile.html')
 
+def upload_view(request):
+    return render(request,'upload.html')
+
+def history_view(request):
+    return render(request,'history.html')
+
 
 def pdf_to_text(pdf):
     text = str(textract.process('input.pdf'))
