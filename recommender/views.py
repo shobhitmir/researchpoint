@@ -6,6 +6,8 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.shortcuts import redirect
 import json
+import re
+import textract
 
 # Create your views here.
 
@@ -57,3 +59,27 @@ def register_view(request):
         else:
             messages.error(request,"Passwords do not match.")
             return redirect(request.META['HTTP_REFERER'])
+
+
+def pdf_to_text(pdf):
+    text = str(textract.process('input.pdf'))
+    text = re.split('\s{4,}',text)
+    text = str(text)
+
+    text = re.sub(r'\[[0-9]*\]',' ',text)
+    text = re.sub(r'\s+',' ',text)
+    text = re.sub(r'\\n','',text)
+    text = re.sub(r'\\',' ',text)
+    text = re.sub(r'\\x',' ',text)
+    text = re.sub(r'\d',' ',text)
+    text = re.sub(r'\s+',' ',text)
+    text = text.split(' ')
+    for i in range(len(text)):
+        text[i] = text[i].lower()
+
+    start = text.index("abstract")
+    end = text.index("introduction")
+    text = text[start+1:end+1]
+    abstract = ' '.join(map(str,text))
+    input = abstract.split(' ')
+    return input
