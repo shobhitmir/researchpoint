@@ -8,8 +8,11 @@ class User(AbstractUser):
     interests = models.TextField(null=True,blank=True)
 
 class Paper(models.Model):
-    paper_title = models.CharField(max_length = 100,null=False,blank=False)
-    paper_abstract = models.TextField(null=True,blank=True)
+    Title = models.CharField(max_length = 100,null=False,blank=False)
+    Year = models.TextField(null=True,blank=True)
+    categories = models.CharField(max_length=100,blank=True,null=True)
+    abstracts = models.TextField(null=True,blank=True)
+    cleaned_text = models.TextField(null=True,blank=True)
 
 class Upvote(models.Model):
     user = models.OneToOneField(User,
