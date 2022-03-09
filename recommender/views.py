@@ -13,6 +13,8 @@ import textract
 
 
 def home_view(request):
+    if request.user is not None:
+        logout(request)
     return render(request,'index.html')
 
 
