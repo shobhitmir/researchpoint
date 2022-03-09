@@ -8,6 +8,12 @@ from django.shortcuts import redirect
 import json
 import re
 import textract
+import nltk
+import gensim
+import os
+from recommender.models import Word2Vec
+w2v_model = Word2Vec()
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -25,7 +31,7 @@ def login_view(request):
         user = authenticate(username = username, password=password)
         if user is not None:
             login(request,user)
-            return render(request,'dashboard.html')
+            return render(request,'upload.html')
         else:
             messages.error(request,"Invalid username or password.")
             return redirect(request.META['HTTP_REFERER'])
@@ -64,7 +70,15 @@ def register_view(request):
 
 
 def dashboard_view(request):
-    return render(request,'dashboard.html')
+    interests = json.loads(request.user.interests)
+    input = []
+    for key,value in interests.items():
+        input.append(value.lower())
+    result = w2v_model.predict(input)
+    output = []
+    for index, row in result.iterrows():
+        output.append([row['Title'],row['Year'],row['categories'],row['abstracts']])
+    return render(request,'dashboard.html',context={'output':output})
 
 def profile_view(request):
     interests = json.loads(request.user.interests)
