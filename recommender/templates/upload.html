@@ -85,8 +85,8 @@
 		<nav>
 			<i class='bx bx-menu' ></i>
 			
-			<form action="#">
-				<div class="form-input">
+			<form action="{% url 'dashboard' %}" method = 'POST'>
+				{% csrf_token %}
 					<input type="search" placeholder="Search...">
 					<button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
 				</div>
@@ -111,35 +111,53 @@
 		Given below is a way to upload your research paper in the form of a file from your computer. The system recommends papers <br>similar to your paper, which can act as a reference and aid with the process of writing.
 	</h6>
     <br>
+
+    <div id="mydiv">
+	    <form action="{% url 'upload' %}" method="POST"
+		    enctype="multipart/form-data"> {% csrf_token %}
+
     <div id="mydiv" style="margin-top: 30px;">
 	    <form action=""
 		    enctype="multipart/form-data">
+
             <h4>Upload your research paper (choose one file at a time):</h4><br>
-		    <label for="myfile">Select a file:</label>
+		    <label for="upload">Select a file:</label>
             <label>Upload from your computer</label>
+			
             <br>
 		        <center><input type="file" id="upload"
-			        name="upload" multiple="multiple" /></center>
+			        name="upload"  required/></center>
 		
 		        <br /><br />
     </div>
 
-		        <input id="submit" style="margin-top: 10px;" type="submit" />
+
+		        <input id="submit" type="submit" value="Submit" />
+
 	    </form>
     </div>
     <br>
     <br>
+	{% if data != "none" %}
+	
     <div class="card col-md-2">
+		{% for i in data %}
         <div class="card-body">
             <class="rp_no" id="rp_no"></class>
-            <h5 class="rp_name" id="rp_name">Topic/Title</h5><br>
-            <class="rp_author" id="rp_author">By Salutation.Someone</h5><br>
-            <class="rp_year" id="rp_year">Published in <year></year></h5>
-            <p class="card-text" id="desc">1 line from the abstract for a brief idea</p>
+            <h5 class="rp_name" id="rp_name">{{ i.0 }}</h5><br>
+            
+            <class="rp_year" id="rp_year">Published in {{ i.1 }}</h5>
+            <p class="card-text" id="desc">{{ i.2 }}</p>
             <a href="#" class="btn btn-primary">Read More</a>
         </div>
+		{% endfor %}
     </div>
+	
+	{% endif %}
     &nbsp;&nbsp;
     <script src="{% static 'js/script.js' %}"></script>
+
+	
+	
 </body>
 </html>

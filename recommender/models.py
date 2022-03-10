@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import nltk
@@ -5,12 +6,16 @@ import gensim
 import os
 from ResearchPoint.settings import BASE_DIR
 import pandas as pd
+from django.db.models import UniqueConstraint
 
 # Create your models here.
 
 
 class User(AbstractUser):
     interests = models.TextField(null=True,blank=True)
+    file = models.FileField(upload_to ='upload/')
+    def _str_(self):
+	    return f'{self.user} {self.id}'
 
 class Paper(models.Model):
     Title = models.CharField(max_length = 100,null=False,blank=False)
@@ -21,9 +26,8 @@ class Paper(models.Model):
     likes = models.BigIntegerField(default=0)
 
 class Upvote(models.Model):
-    user_email = models.EmailField()
-    paper = models.OneToOneField(Paper,
-    on_delete=models.CASCADE, null=True, blank=True, unique=False)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True,related_name='company')
+    paper = models.OneToOneField(Paper,on_delete=models.SET_NULL,null=True,related_name='paper')
 
 
 class Word2Vec:
