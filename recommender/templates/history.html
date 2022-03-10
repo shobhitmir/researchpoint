@@ -80,19 +80,54 @@
 
 		
 	</section>
-    <!-----Content-->
-    <div class="card">
-        <div class="card-body">
-            <class="rp_no" id="rp_no"></class>
-            <h5 class="rp_name" id="rp_name">Topic/Title</h5>
-            <class="rp_author" id="rp_author">By Salutation.Someone</h5><br>
-            <class="rp_year" id="rp_year">Published in <year></year></h5><br><br>
-            <p class="card-text" id="desc">1 line from the abstract for a brief idea</p>
-            <a href="#" class="btn btn-primary">Read More</a>
+
+	<div class="container">
+        <br>
+        <div class="row">
+        {% for paper in papers %}
+        <div class="card">
+            <div class="card-header">
+                {{paper.Title}}
+            </div>
+            <div class="card-body">
+                {{paper.abstracts}}
+            </div>
+            <blockquote class="blockquote mb-0">
+                <footer class="blockquote-footer">{{paper.Year}}</footer>
+            </blockquote>
+        </div>
+        {% endfor %}
         </div>
     </div>
-    &nbsp;&nbsp;
+    <style type='text/css'>
+        #mydiv {
+             border: dotted 3px black; 
+             padding: 12px;
+             width: 850px;
+             text-align: center;
+            }
+        #submit{
+            border: none;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 5px;
+            border-radius: 6px;
+            width: 100px;
+            background-color: #4070f4;
+        }
+        .container
+        {
+            margin-right: 500px;
+            margin-top: 250px;
+        }
+    </style>
+
+
+
 
     <script src="{% static 'js/script.js' %}"></script>
+
+
 </body>
 </html>

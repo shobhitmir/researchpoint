@@ -15,6 +15,10 @@
             </div>
             <blockquote class="blockquote mb-0">
                 <footer class="blockquote-footer">{{row.1}}</footer>
+                <form action="{% url 'dashboard' %}" method="POST">
+                {% csrf_token %}
+                <button type ="submit" name="like" value="{{row.4}}" class="btn btn-success" style="margin-bottom:5px;">Like</button>
+            </form>
             </blockquote>
         </div>
             {% endfor %}

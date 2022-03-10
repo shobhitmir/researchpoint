@@ -18,12 +18,12 @@ class Paper(models.Model):
     categories = models.CharField(max_length=100,blank=True,null=True)
     abstracts = models.TextField(null=True,blank=True)
     cleaned_text = models.TextField(null=True,blank=True)
+    likes = models.BigIntegerField(default=0)
 
 class Upvote(models.Model):
-    user = models.OneToOneField(User,
-    on_delete=models.CASCADE, null=True, blank=True)
+    user_email = models.EmailField()
     paper = models.OneToOneField(Paper,
-    on_delete=models.CASCADE, null=True, blank=True)
+    on_delete=models.CASCADE, null=True, blank=True, unique=False)
 
 
 class Word2Vec:

@@ -1,7 +1,7 @@
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.contrib.auth import login,authenticate, logout
-from .models import User
+from .models import User,Upvote, Paper
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -13,8 +13,6 @@ import gensim
 import os
 from recommender.models import Word2Vec
 w2v_model = Word2Vec()
-from django.core.paginator import Paginator
-
 # Create your views here.
 
 
@@ -70,6 +68,14 @@ def register_view(request):
 
 
 def dashboard_view(request):
+    if request.POST.get('like'):
+        id = request.POST.get('like')
+        user = request.user 
+        paper = Paper.objects.get(id=id)
+        upvote = Upvote.objects.create()
+        upvote.user_email = user.email
+        upvote.paper = paper
+        upvote.save()
     interests = json.loads(request.user.interests)
     input = []
     for key,value in interests.items():
@@ -77,7 +83,7 @@ def dashboard_view(request):
     result = w2v_model.predict(input)
     output = []
     for index, row in result.iterrows():
-        output.append([row['Title'],row['Year'],row['categories'],row['abstracts']])
+        output.append([row['Title'],row['Year'],row['categories'],row['abstracts'],index])
     return render(request,'dashboard.html',context={'output':output})
 
 def profile_view(request):
@@ -88,7 +94,12 @@ def upload_view(request):
     return render(request,'upload.html')
 
 def history_view(request):
-    return render(request,'history.html')
+    upvote = Upvote.objects.filter(user_email = request.user.email)
+    papers = []
+    for obj in upvote:
+        papers.append(Paper.objects.get(id = obj.paper.id))
+    print(papers)
+    return render(request,'history.html',{'papers':papers})
 
 def pdf_to_text(pdf):
     text = str(textract.process('input.pdf'))
