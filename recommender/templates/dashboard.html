@@ -13,11 +13,12 @@
             <div class="card-body">
                 {{row.3}}
             </div>
+            <blockquote class="blockquote mb-0">
+                <footer class="blockquote-footer">{{row.1}}</footer>
+            </blockquote>
         </div>
-            &nbsp;&nbsp;
             {% endfor %}
         </div>
-        
     </div>
     <style type='text/css'>
         #mydiv {
@@ -39,7 +40,7 @@
         .container
         {
             margin-right: 500px;
-            margin-top: 200px;
+            margin-top: 250px;
         }
     </style>
 	<script src="{% static 'js/script.js' %}"></script>
